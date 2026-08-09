@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<title>PG Manager</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>PG Manager</h1>
+    <p>Paying Guest Management</p>
+  </div>
+  <button id="installBtn" class="secondary hidden">Install App</button>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-view="dashboard">Dashboard</button>
+  <button class="tab" data-view="guests">Guests</button>
+  <button class="tab" data-view="rooms">Rooms</button>
+  <button class="tab" data-view="payments">Payments</button>
+</nav>
+
+<main>
+<section id="dashboard" class="view active">
+  <div class="cards">
+    <div class="card"><span>Total Guests</span><strong id="statGuests">0</strong></div>
+    <div class="card"><span>Occupied Beds</span><strong id="statOccupied">0</strong></div>
+    <div class="card"><span>Vacant Beds</span><strong id="statVacant">0</strong></div>
+    <div class="card"><span>Advance Collected</span><strong id="statAdvance">$0</strong></div>
+    <div class="card"><span>Pending Payments</span><strong id="statPending">$0</strong></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h2>Quick actions</h2></div>
+    <div class="actions">
+      <button class="primary" data-go="guests" data-action="new">+ Add Guest</button>
+      <button class="secondary" data-go="rooms" data-action="new">+ Add Room</button>
+      <button class="secondary" data-go="payments" data-action="new">+ Record Payment</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h2>Recent guests</h2></div>
+    <div id="recentGuests" class="list"></div>
+  </div>
+</section>
+
+<section id="guests" class="view">
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Guests</h2>
+      <button class="primary" id="addGuestBtn">+ Add Guest</button>
+    </div>
+    <input id="guestSearch" class="search" placeholder="Search name, phone, room or ID...">
+    <div id="guestList" class="table-wrap"></div>
+  </div>
+</section>
+
+<section id="rooms" class="view">
+  <div class="panel">
+    <div class="panel-head"><h2>Rooms & Beds</h2><button class="primary" id="addRoomBtn">+ Add Room</button></div>
+    <div id="roomList" class="room-grid"></div>
+  </div>
+</section>
+
+<section id="payments" class="view">
+  <div class="panel">
+    <div class="panel-head"><h2>Payments</h2><button class="primary" id="addPaymentBtn">+ Record Payment</button></div>
+    <div id="paymentList" class="table-wrap"></div>
+  </div>
+</section>
+</main>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h2 id="modalTitle"></h2><button id="closeModal" class="icon">×</button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(console.error);
+  });
+}
+</script>
+</body>
+</html>
