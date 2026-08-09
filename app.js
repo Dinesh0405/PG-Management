@@ -1,7 +1,7 @@
 const DB_NAME="pg_manager_db", DB_VER=1;
 let db, installPrompt=null;
 const $=s=>document.querySelector(s);
-const money=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(n||0));
+const money=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"INR"}).format(Number(n||0));
 const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random();
 
 function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,DB_VER);r.onupgradeneeded=e=>{const d=e.target.result;["guests","rooms","payments"].forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:"id"})})};r.onsuccess=()=>{db=r.result;resolve(db)};r.onerror=()=>reject(r.error)})}
