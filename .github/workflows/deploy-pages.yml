@@ -26,6 +26,16 @@ jobs:
       - name: Checkout release branch
         uses: actions/checkout@v4
 
+      - name: Validate static PWA files
+        run: |
+          test -f index.html
+          test -f app.js
+          test -f styles.css
+          test -f manifest.webmanifest
+          test -f sw.js
+          test -f icon.svg
+          test -f 404.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
